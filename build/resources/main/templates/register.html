@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <title>Register</title>
+</head>
+<body >
+<nav class="navbar navbar-expand-lg fixed-top ">
+    <div id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link" data-value="home" th:href="@{/}">Home</a>
+            </li>
+
+
+        </ul>
+    </div>
+</nav>
+<div class="container" style="background-color:transparent">
+    <div class="row">
+        <div class="col-5" style="margin-top: 100px">
+            <div class="my-3 p-3 bg-transparent rounded box-shadow">
+                <br>
+
+                <form th:action="@{/search}"  method="post">
+                    <input class="form-control" type="text" th:value="${sourceText}" name="sourceText"/>
+                    <input class="btn btn-primary" type="submit" value="Search Users" />
+                </form>
+
+                <div class="media text-muted pt-3" th:each=" user: ${users}">
+                    <img  th:src="@{/files/{filename}(filename=${user.getProfilePhoto()})}" data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded"
+                          style="height: 50px;width: 50px">
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong th:text="${user.getUsername()}" class="d-block text-gray-dark">username</strong>
+                        <a th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"
+                            th:href="@{'/users/' + ${user.getId()}}"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card card-signin flex-row my-5 bg-transparent">
+                <div class="card-img-left d-none d-md-flex">
+                    <!-- Background image for card set in CSS! -->
+                </div>
+                <div class="card-body text-white">
+                    <h5 class="card-title text-center">Register</h5>
+                    <br/>
+                    <h4 th:text="${exceptionMessage}"></h4>
+                    <form class="form-signin " th:action="@{/register}" th:object="${userDto}" method="post">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-label-group">
+                                    <input type="text" th:field="*{username}" class="form-control"
+                                           placeholder="Username" required autofocus>
+
+                                    <label>Username*</label>
+                                    <label style="color: red" th:errors="*{username}" >last name error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="email" th:field="*{email}" class="form-control"
+                                           placeholder="Email address" required>
+
+                                    <label>Email address*</label>
+                                    <label style="color: red" th:errors="*{email}" >last name error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="password" th:field="*{password}" class="form-control"
+                                           placeholder="Password" required>
+
+                                    <label>Password*</label>
+                                    <label style="color: red" th:errors="*{password}" >last name error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="password" th:field="*{passwordConfirmation}" class="form-control" placeholder="Confirm password" required>
+
+                                    <label>Confirm password*</label>
+                                    <label style="color: red" th:errors="*{passwordConfirmation}" >password confirmation error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="text" th:field="*{firstName}" class="form-control" placeholder="FirstName">
+                                    <label>First Name</label>
+                                    <label style="color: red" th:errors="*{firstName}" >first name error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="text" th:field="*{lastName}" class="form-control"placeholder="Last Name" >
+                                    <label>Last Name</label>
+                                    <label style="color: red" th:errors="*{lastName}" >last name error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="date" th:field="*{birthDate}" class="form-control">
+                                    <label>Birth Date</label>
+                                    <label style="color: red" th:errors="*{birthDate}" >last name error</label>
+                                </div>
+
+                            </div>
+                            <div class="col-6">
+
+                                <div class="form-label-group">
+                                    <input type="text" th:field="*{address}" class="form-control" placeholder="Address">
+
+                                    <label>Address</label>
+                                    <label style="color: red" th:errors="*{address}" >last name error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="text" th:field="*{cityOfBirth}" class="form-control"placeholder="City of Birth" >
+                                    <label>City of Birth</label>
+                                    <label style="color: red" th:errors="*{cityOfBirth}" >last name error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="text"  th:field ="*{planetOfCityOfBirth}" class="form-control" placeholder="Planet" >
+                                    <label>Planet</label>
+                                </div>
+
+
+                                <div class="form-label-group">
+                                    <input type="text" th:field="*{cityOfResidence}" class="form-control"
+                                           placeholder="City of Residence" >
+                                    <label>City of Residence</label>
+                                    <label style="color: red" th:errors="*{cityOfResidence}" >last name error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="text" th:field="*{planetOfCityOfResidence}"class="form-control" placeholder="Planet" >
+                                    <label>Planet</label>
+                                </div>
+
+
+                                <div class="form-label-group">
+                                    <input type="text" th:field="*{jobTitle}" class="form-control"
+                                           placeholder="Job Title" >
+                                    <label>Job Title</label>
+                                    <label style="color: red" th:errors="*{jobTitle}" >last name error</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="text" th:field="*{educationLevel}" class="form-control"
+                                           placeholder="Education" >
+                                    <label>Education</label>
+                                    <label style="color: red" th:errors="*{educationLevel}" >last name error</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+                        <a class="d-block text-center mt-2 small" th:href="@{/login}">Log In</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+</body>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

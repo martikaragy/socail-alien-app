@@ -1,0 +1,53 @@
+.navbar{ background: #9e1df4;}
+
+.nav-link , .navbar-brand{ color: #ffffff; cursor: pointer;}
+
+.nav-link{ margin-right: 1em !important;}
+
+.nav-link:hover{ background: #991ef9; color: #ffffff; }
+
+.navbar-collapse{ justify-content: flex-end;}
+
+.navbar-toggler{  background: #991ef9 !important;}
+
+.info {background-color: white; margin:10px}
+
+.nameFont{
+    font-size: 20px;
+
+}
+.searchFont{
+    font-size: 20px;
+    color: darkslategray;
+}
+
+body{
+    background-image: url("/universe.jpg");
+
+}
+
+
+.glow {
+    font-size: 80px;
+    color: #fff;
+    text-align: center;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #3f61e6, 0 0 40px #2730e6, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    }
+
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #7694ff, 0 0 40px #a351ff, 0 0 50px #fffe38, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+}
+
+
+
+
+
+

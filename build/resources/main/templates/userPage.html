@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top ">
+    <div id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link" data-value="home" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_USER')" th:unless="${isProfilePage==true}" class="nav-link "
+                   data-value="userProfile"
+                   th:text="${loggedUser.username}" th:href="@{/users/{id}(id=${loggedUser.id})}"></a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('USER')" th:if="${isProfilePage==true}" class="nav-link "
+                   data-value="userProfile" th:href="@{/users/{id}/update(id=${loggedUser.id})}">Update profile</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="!isAuthenticated()" class="nav-link " data-value="login" th:href="@{/login}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" class="nav-link " data-value="logout"
+                   th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br>
+<h4 th:text="${message}"></h4>
+<h4 th:text="${exceptionMessage}"></h4>
+<div class="container" style="margin-left: 100px">
+    <div class="row" style="margin-top: 80px">
+        <div class="col-lg-4 text-center" style="background-color: white; border-radius: 10px; opacity: 0.8; font-size: 15px">
+            <img style="margin-top: 10px" th:if="${showPhoto==false}" th:src="@{/files/profile-default.jpg}"
+                 alt="Profile pic"
+                 width="auto"
+                 height="190">
+            <br/>
+            <img th:if="${showPhoto==true}" th:src="@{/files/{filename}(filename=${user.profilePhoto})}"
+                 th:attr="alt=${user.username} + 'profile pic'" width="130" height="190">
+            <br/>
+            <form sec:authorize="hasRole('ROLE_USER')" th:unless="${isProfilePage==true}"
+                  th:if="${isConnected == false || (isConnected== true && isFriends == false && isRequestedFromUser==true)}"
+                  th:action="@{/users/{id}/send/request/{receiverId}(id=${loggedUser.id},receiverId=${user.id})}"
+                  method="post">
+                <input style="margin: 10px;" class="btn btn-light" type="submit" value="FRIEND REQUEST">
+            </form>
+            <h5 sec:authorize="hasRole('ROLE_USER')" th:unless="${isProfilePage==true}"
+                th:if="${isConnected == true && isFriends == false && isRequestedByPrincipal == true}">FRIENDSHIP
+                REQUESTED</h5>
+            <h5 sec:authorize="hasRole('ROLE_USER')" th:if="${isFriends == true}">
+                FRIEND</h5>
+            <form sec:authorize="hasRole('ROLE_USER')" th:unless="${isProfilePage==true}" th:if="${isFriends == true}"
+                  th:action="@{/users/{id}/unfriend/{receiverId}(id=${loggedUser.id},receiverId=${user.id})}"
+                  method="post">
+                <input style="margin: 3px;" class="btn btn-light" type="submit" value="UNFRIEND">
+            </form>
+            <br>
+            <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/users/{id}/update(id=${user.id})}" method="get">
+                <input style="margin: 3px;" class="btn btn-light" type="submit" value="REVISE INFO">
+            </form>
+            <br>
+            <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/users/{id}/delete(id=${user.id})}" method="post">
+                <input style="margin: 3px;" class="btn btn-light" type="submit" value="DELETE USER">
+            </form>
+            <br>
+            <table th:each="item: ${list}">
+                <tr>
+                    <td th:text="${item}"></td>
+                </tr>
+            </table>
+            <br/>
+            <div  sec:authorize="hasRole('ROLE_USER')" th:if="${isProfilePage==true}">
+                <h6 th:text="'You have ' + ${requestsCountStr} + ' friend requests.'"></h6>
+                <a th:unless="${requestsCountInt == 0}" th:href="@{/users/{id}/requests(id= ${ loggedUser.id })  }">View
+                    requests</a>
+            </div>
+        </div>
+        <div class="col-lg-1"></div>
+
+        <div class="col-lg-7 ">
+            <div th:if="${user.getUsername()==#authentication.getName()}">
+                <form style="margin-top: 100px" th:action="@{'/post/' + ${user.getId()}}" th:object="${post}"
+                      method="post">
+                <textarea th:field="*{value}" class="form-control" rows="3"
+                          placeholder="Write something to share with others" required=""
+                          oninvalid="this.setCustomValidity('Please Enter Something to be posted')"
+                          oninput="setCustomValidity('')">
+                 </textarea>
+                    <div class = "row">
+                        <div class="col lg-3">
+                    <button class="btn btn-primary text-uppercase pull-right" style="margin-top: 10px" type="submit">
+                        Post
+                    </button>
+                        </div>
+                        <div class="col lg-4">
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" type="radio"  checked th:field="*{privacyType}" name="inlineRadioOptions" id="inlineRadio1" value="PUBLIC" >
+                                <label class="form-check-label text-white" for="inlineRadio1">Public</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" th:field="*{privacyType}" name="inlineRadioOptions" id="inlineRadio2" value="PRIVATE">
+                                <label class="form-check-label text-white" for="inlineRadio2">Private</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="container mt-3 text-white" style="background: rgba(189, 169, 214, 0.7); border-radius: 10px;)">
+
+                <div class="media p-3" th:each="post:${posts} ">
+                    <img th:src="@{/files/{filename}(filename=${user.getProfilePhoto()})}" alt="John Doe"
+                         class="mr-3 mt-1 rounded-circle"
+                         style="width:60px;">
+                    <div class="media-body">
+                        <a style="margin-bottom: 0px;color: white; font-size: 15px" th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"
+                        th:href="@{'/users/' + ${user.getId()}}">
+                            User</a>
+                        <a th:if="${#authentication.getName() == user.getUsername()}" onclick="myFunction()" type="button" class="close " aria-label="Close"
+                           th:href="@{'/delete/post/get/'+ ${post.getId()}+'/'+${user.getId()}}">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                        <br>
+                        <small style="margin-top: 0px" th:text="'Posted on '+ ${post.getDateCreated()}">date
+                            created</small>
+                        <h6 style="color: black" th:text="${post.getValue()}">Post text.</h6>
+                       <div class="row">
+                           <form sec:authorize="hasRole('ROLE_USER')" th:action="@{'/like'}" method="post">
+                            <input class="form-control" type="hidden" th:value="${#authentication.getName()}" name="user" >
+                            <input class="form-control" type="hidden" th:value="${post.getId()}" name="post">
+                        <button type="submit" class="btn btn-link">Like</button>
+                        </form>
+                           <p th:text="${post.getLikes().size() +' likes'}"></p>
+                       </div>
+                        <hr>
+                        <form sec:authorize="hasRole('ROLE_USER')"
+                              th:action="@{'/comment/' + ${#authentication.getName()} +'/'+ ${post.getId()}+'/' + ${user.getId()}}"
+                              th:object="${newComment}" method="post">
+                <textarea th:field="*{value}" class="form-control" rows="1"
+                          placeholder="Write some comment" required=""
+                          oninvalid="this.setCustomValidity('Please Enter some comment')"
+                          oninput="setCustomValidity('')">
+                 </textarea>
+                            <button class="btn btn-primary btn-sm  pull-right" style="margin-top: 10px" type="submit">
+                                comment
+                            </button>
+                        </form>
+
+                        <form sec:authorize="hasRole('ROLE_ADMIN')"
+                              th:action="@{/post/update/{userId}/{postId}(postId=${post.id}, userId=${post.user.id})}"
+                              method="get">
+                            <input style="margin: 3px;" class="btn btn-secondary" type="submit" value="Update post">
+                        </form>
+                        <form sec:authorize="hasRole('ROLE_ADMIN')"
+                              th:action="@{/delete/post/{postId}/{userId}(postId=${post.id}, userId=${post.user.id})}"
+                              method="post">
+                            <input style="margin: 3px;" class="btn btn-secondary" type="submit" value="Delete post">
+                        </form>
+                        <div class="media p-3" th th:each="comment:${post.getComments()}">
+                            <img th:src="@{/files/{filename}(filename=${comment.getUser().getProfilePhoto()})}"
+                                 alt="Jane Doe" class="mr-3 mt-1 rounded-circle" style="width:45px;">
+                            <div class="media-body">
+                                <a style="color: white" th:text="${comment.getUser().getFirstName()} +' '+${comment.getUser().getLastName()}"
+                                    th:href="@{'/users/' + ${comment.user.getId()}}">
+                                    First and Last name</a>
+                                <p style="color: black" th:text="${comment.getValue()}"> comment value</p>
+                                <hr>
+                                <form sec:authorize="hasRole('ROLE_ADMIN')"
+                                      th:action="@{/comment/update/{commentId}/{commentUserId}/{postId}(commentId=${comment.id},commentUserId=${comment.user.id},postId=${post.id})}"
+                                      method="get">
+                                    <input style="margin: 3px;" class="btn btn-secondary" type="submit"
+                                           value="Update comment">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-2 text-center">
+
+    </div>
+    </div>
+</div>
+<script>
+    function myFunction() {
+        location.reload();
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.telerikacademy.socialalien.services.UserServiceImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-18T19:40:58" hostname="marty" time="0.825">
+  <properties/>
+  <testcase name="deleteUser_Should_DeleteUser_When_UserExists" classname="com.telerikacademy.socialalien.services.UserServiceImplTest" time="0.825"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

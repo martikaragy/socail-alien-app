@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Login</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top " style="margin-bottom: 100px">
+    <div id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link" data-value="home" th:href="@{/}">Home</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div class="container" style="background-color:transparent">
+    <div class="row">
+
+            <div class="col-5" style="margin-top: 100px">
+                <div class="my-3 p-3 bg-transparent rounded box-shadow">
+                <form th:action="@{/login/search}" method="post">
+                    <input class="form-control" type="text" th:value="${sourceText}" name="sourceText"/>
+                    <input class="btn btn-primary" type="submit" value="Search Users"/>
+                </form>
+
+                <div class="media text-muted pt-3" th:each="user: ${users}">
+                    <img th:src="@{/files/{filename}(filename=${user.getProfilePhoto()})}"
+                         data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded"
+                         style="height: 50px;width: 50px">
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong th:text="${user.getUsername()}" class="d-block text-gray-dark">username</strong>
+                        <a th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"
+                           th:href="@{'/users/' + ${user.getId()}}"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <div class="col-6">
+            <div class="card card-signin flex-row my-5 bg-transparent">
+                <div class="card-img-left d-none d-md-flex">
+                    <!-- Background image for card set in CSS! -->
+                </div>
+                <div class="card-body text-white">
+                    <h5 class="card-title text-center">Log In</h5>
+                    <form class="form-signin" th:action="@{/authenticate}" method="post">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-label-group">
+                                    <input type="text" class="form-control" id="username" name="username"
+                                           placeholder="Username" required autofocus>
+                                    <label>Username</label>
+                                </div>
+
+
+                                <div class="form-label-group">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                           placeholder="Password" required>
+                                    <label>Password</label>
+                                </div>
+                                <p>
+                                    <i th:if="${param.error}" class="error">Wrong username or password.</i>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Log in</button>
+                        <a class="d-block text-center mt-2 small" th:href="@{/register}">Register</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+</body>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,1 +1,2 @@
-# social alien app
+# SocialAlien
+
