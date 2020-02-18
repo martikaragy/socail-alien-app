@@ -147,9 +147,9 @@ public class PostServiceImpl implements PostService {
             User user = userService.getUserByUsername(principalName).get();
             posts.addAll(getAllByUser(user)) ;
 
-               if(connectionService.getAllConnectionsOfUserByConnectionStatus(user.getId(), ConnectionType.APPROVED)==null)
+               if(connectionService.getAllConnectionsOfUserByConnectionStatus(user.getId(), "APPROVED")==null)
                    return posts;
-                List<Connection> connections = connectionService.getAllConnectionsOfUserByConnectionStatus(user.getId(), ConnectionType.APPROVED);
+                List<Connection> connections = connectionService.getAllConnectionsOfUserByConnectionStatus(user.getId(), "APPROVED");
 
                 for(Connection connection: connections)
             {

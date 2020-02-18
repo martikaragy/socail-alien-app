@@ -18,8 +18,6 @@ public interface ConnectionService {
 
     Connection getConnectionByUserCouple(User userOne, User userTwo);
 
-    List<Connection> getAllConnectionsOfUserByConnectionStatus(int userId, ConnectionType connectionType);
-
     List<Connection> getAllConnectionsOfUserByConnectionStatus(int userId, String connectionTypeAsStr);
 
     Page<Connection> getConnectionByReceiverUserAndConnectionStatus(User senderUser, ConnectionType connectionStatus, Pageable pageable);

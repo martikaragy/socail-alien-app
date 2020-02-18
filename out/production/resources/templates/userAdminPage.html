@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>User Admin Page</title>
+    <style>
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top ">
+    <div id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link" data-value="home" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" class="nav-link " data-value="userProfile"
+                   th:href="@{/users/{id}(id=${loggedUser.id})}" th:text="${loggedUser.username}"></a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" th:unless="${isProfilePage==true}" class="nav-link "
+                   data-value="userProfile" th:href="@{/users/{id}(id=${user.id})}">User profile</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="!isAuthenticated()" class="nav-link " data-value="login" th:href="@{/login}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" class="nav-link " data-value="logout" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br/>
+<br/>
+<br/>
+<h4 style="text-align: center; color: white" th:if="${message != null}" th:text="${message}"></h4>
+<h4 style="text-align: center; color: white" th:if="${exceptionMessage != null}" th:text="${exceptionMessage}"></h4>
+<br/>
+<div class="container">
+    <div class="row" style="background-color: white; opacity: 0.8; border-radius: 10px">
+    <div class="col-lg-6">
+        <br>
+        <form th:object="${userDto}" th:action="@{/users/{id}/update(id=${user.id})}" method="post">
+            <label>First name: </label><input type="text" th:field="*{firstName}"><br>
+            <label>Last name: </label><input type="text" th:field="*{lastName}"><br>
+            <label>Email: </label><input type="text" th:field="*{email}"><br>
+            <label>Address: </label><input type="text" th:field="*{address}"><br>
+            <label>Birth date: </label><input type="text" th:field="*{birthDate}"><br>
+            <label>City of birth: </label><input type="text" th:field="*{cityOfBirth}"><br>
+            <label>Planet of city of birth: </label><input type="text" th:field="*{planetOfCityOfBirth}"><br>
+            <label>City of Residence </label><input type="text" th:field="*{cityOfResidence}"><br>
+            <label>Planet of City of Residence </label><input type="text" th:field="*{planetOfCityOfResidence}"><br>
+            <label>Job:</label><input type="text" th:field="*{jobTitle}"><br>
+            <label>Education:</label> <input type="text" th:field="*{educationLevel}"><br>
+            <input class="btn btn-primary" type="submit" value="Update">
+        </form>
+        <br>
+
+    </div>
+    <div class="col-lg-6">
+        <br/>
+        <form th:object="${visibilityUpdate}" th:action="@{/users/{id}/update/visibility(id=${user.id})}"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <input type="hidden" th:id="${visibilityUpdate.id}" th:name="user" th:value="${user.id}">
+            <label>First name:</label><br>
+            <input th:if="${userVisibility.isFirstName()==true}" type="radio" th:name="firstName" th:value="true"
+                   th:text="'public'"
+                   checked>
+            <input th:if="${userVisibility.isFirstName()==true}" type="radio" th:name="firstName" th:value="false"
+                   th:text="'friends only'"><br/>
+            <input th:if="${userVisibility.isFirstName()==false}" type="radio" th:name="firstName" th:value="true"
+                   th:text="'public'">
+
+            <input th:if="${userVisibility.isFirstName()==false}" type="radio" th:name="firstName" th:value="false"
+                   th:text="'friends only'"
+                   checked><br/>
+            <label>Last name:</label><br>
+            <input th:if="${userVisibility.isLastName()==true}" type="radio" th:name="lastName" th:value="true"
+                   th:text="'public'" checked>
+            <input th:if="${userVisibility.isLastName()==true}" type="radio" th:name="lastName" th:value="false"
+                   th:text="'friends
+            only'"><br/>
+            <input th:if="${userVisibility.isLastName()==false}" type="radio" th:name="lastName" th:value="true"
+                   th:text="'public'">
+            <input th:if="${userVisibility.isLastName()==false}" type="radio" th:name="lastName" th:value="false"
+                   th:text="'friends
+            only'" checked><br/>
+            <label>Email:</label><br>
+            <input th:if="${userVisibility.isEmail()==true}" type="radio" th:name="email" th:value="true"
+                   th:text="'public'" checked>
+            <input th:if="${userVisibility.isEmail()==true}" type="radio" th:name="email" th:value="false" th:text="'friends
+            only'"><br/>
+            <input th:if="${userVisibility.isEmail()==false}" type="radio" th:name="email" th:value="true"
+                   th:text="'public'">
+            <input th:if="${userVisibility.isEmail()==false}" type="radio" th:name="email" th:value="false" th:text="'friends
+            only'" checked><br/>
+            <label>Address:</label><br>
+            <input th:if="${userVisibility.isAddress()==true}" type="radio" th:name="address" th:value="true"
+                   th:text="'public'" checked>
+            <input th:if="${userVisibility.isAddress()==true}" type="radio" th:name="address" th:value="false"
+                   th:text="'friends only'"><br/>
+            <input th:if="${userVisibility.isAddress()==false}" type="radio" th:name="address" th:value="true"
+                   th:text="'public'">
+            <input th:if="${userVisibility.isAddress()==false}" type="radio" th:name="address" th:value="false"
+                   th:text="'friends
+            only'" checked><br/>
+            <label>Birth date::</label><br>
+            <input th:if="${userVisibility.isDate()==true}" type="radio" th:name="birthDate" th:value="true"
+                   th:text="'public'" checked>
+            <input th:if="${userVisibility.isDate()==true}" type="radio" th:name="birthDate" th:value="false"
+                   th:text="'friends only'"><br/>
+            <input th:if="${userVisibility.isDate()==false}" type="radio" th:name="birthDate" th:value="true"
+                   th:text="public">
+            <input th:if="${userVisibility.isDate()==false}" type="radio" th:name="birthDate" th:value="false"
+                   th:text="'friends only'" checked><br/>
+            <label>City of birth:</label><br>
+            <input th:if="${userVisibility.isCityOfBirth()==true}" type="radio" th:name="cityOfBirth" th:value="true"
+                   checked th:text="'public'">
+            <input th:if="${userVisibility.isCityOfBirth()==true}" type="radio" th:name="cityOfBirth" th:value="false"
+                   th:text="'friends only'"><br/>
+            <input th:if="${userVisibility.isCityOfBirth()==false}" type="radio" th:name="cityOfBirth" th:value="true"
+                   th:text="'public'">
+            <input th:if="${userVisibility.isCityOfBirth()==false}" type="radio" th:name="cityOfBirth" th:value="false"
+                   checked th:text="'friends only'"><br/>
+            <label>City of residence:</label><br>
+            <input th:if="${userVisibility.isCityOfResidence()==true}" type="radio" th:name="cityOfResidence"
+                   th:value="true" th:text="'public'" checked>
+            <input th:if="${userVisibility.isCityOfResidence()==true}" type="radio" th:name="cityOfResidence"
+                   th:value="false" th:text="'friends only'"><br/>
+            <input th:if="${userVisibility.isCityOfResidence()==false}" type="radio" th:name="cityOfResidence"
+                   th:value="true" th:text="'public'">
+            <input th:if="${userVisibility.isCityOfResidence()==false}" type="radio" th:name="cityOfResidence"
+                   th:value="false" checked th:text="'friends only'"><br/>
+            <label>Job:</label><br>
+            <input th:if="${userVisibility.isJobTitle()==true}" type="radio" th:name="jobTitle" th:value="true" checked
+                   th:text="'public'">
+            <input th:if="${userVisibility.isJobTitle()==true}" type="radio" th:name="jobTitle" th:value="false"
+                   th:text="'friends only'"><br/>
+            <input th:if="${userVisibility.isJobTitle()==false}" type="radio" th:name="jobTitle" th:value="true"
+                   th:text="'public'">
+            <input th:if="${userVisibility.isJobTitle()==false}" type="radio" th:name="jobTitle" th:value="false"
+                   checked th:text="'friends only'"><br/>
+            <label>Education:</label><br>
+            <input th:if="${userVisibility.isEducationLevel()==true}" type="radio" th:name="educationLevel"
+                   th:value="true" th:text="'public'" checked>
+            <input th:if="${userVisibility.isEducationLevel()==true}" type="radio" th:name="educationLevel"
+                   th:value="false" th:text="'friends only'"><br/>
+            <input th:if="${userVisibility.isEducationLevel()==false}" type="radio" th:name="educationLevel"
+                   th:value="true" th:text="'public'">
+            <input th:if="${userVisibility.isEducationLevel()==false}" type="radio" th:name="educationLevel"
+                   th:value="false" checked th:text="'friends only'"><br/>
+            <label>Profile photo:</label><br>
+            <input th:if="${userVisibility.isProfilePhoto()==true}" type="radio" th:name="profilePhoto" th:value="true"
+                   checked th:text="'public'">
+            <input th:if="${userVisibility.isProfilePhoto()==true}" type="radio" th:name="profilePhoto"
+                   th:value="false" th:text="'friends only'"><br/>
+            <input th:if="${userVisibility.isProfilePhoto()==false}" type="radio" th:name="profilePhoto"
+                   th:value="true" th:text="'public'">
+            <input th:if="${userVisibility.isProfilePhoto()==false}" type="radio" th:name="profilePhoto"
+                   th:value="false" checked th:text="'freinds only'"><br/>
+            <input class="btn btn-primary" type="submit" value="Update"/>
+        </form>
+        <br/>
+        <form method="POST" enctype="multipart/form-data" th:action="@{/users/{id}/update/image(id=${loggedUser.id})}">
+            <label>Upload picture</label>
+            <input type="file" name="file"/>
+            <input class="btn btn-primary" type="submit" value="Upload"/>
+        </form>
+        <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/users/{id}/update/image/default(id=${user.id})}"
+              method="post">
+            <input class="btn btn-primary" type="submit" value="Set picture to default"/>
+        </form>
+        <br>
+        <br>
+    </div>
+</div>
+</div>
+<br>
+<br>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

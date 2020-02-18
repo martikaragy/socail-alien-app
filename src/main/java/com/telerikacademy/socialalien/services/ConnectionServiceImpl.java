@@ -63,23 +63,24 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public List<Connection> getAllConnectionsOfUserByConnectionStatus(int userId, String connectionTypeAsStr) {
         ConnectionType connectionType = ConnectionType.valueOf(connectionTypeAsStr.toUpperCase());
-        if (!(connectionType.equals(ConnectionType.REQUESTED)) || (connectionType.equals(ConnectionType.APPROVED))) {
+        if (!(connectionType.equals(ConnectionType.REQUESTED)) && !(connectionType.equals(ConnectionType.APPROVED))) {
             throw new InvalidInputException("Invalid connection status: Valid statuses are: REQUESTED, APPROVED.");
         }
-        return getAllConnectionsOfUserByConnectionStatus(userId, connectionType)
-                .stream()
-                .filter(connection -> connection.getSenderUser().getId() != userId)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Connection> getAllConnectionsOfUserByConnectionStatus(int userId, ConnectionType connectionType) {
         if (getAllbyUserId(userId) == null) {
             return null;
         }
         List<Connection> connections = getAllbyUserId(userId);
         return connections.stream().filter(connection -> connection.getConnectionStatus().equals(connectionType)).collect(Collectors.toList());
     }
+
+//    @Override
+//    public List<Connection> getAllConnectionsOfUserByConnectionStatus(int userId, ConnectionType connectionType) {
+//        if (getAllbyUserId(userId) == null) {
+//            return null;
+//        }
+//        List<Connection> connections = getAllbyUserId(userId);
+//        return connections.stream().filter(connection -> connection.getConnectionStatus().equals(connectionType)).collect(Collectors.toList());
+//    }
 
 
     @Override

@@ -12,7 +12,8 @@ public interface UserService {
     List<User> getAllUsers();
     Optional<User> getUserById(int id);
     Optional<User> getUserByUsername(String username);
-
+    List<User> getUserFriends(int id);
+    List<User> getPeopleRequestingFriendship(int id);
     Set<User> getUsersBySubstring(String substring);
     User createUser(UserDto userDto);
     User updateUser(int userId, UserDto userDto);

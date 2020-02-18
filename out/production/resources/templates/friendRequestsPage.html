@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Friend Requests Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg fixed-top ">
+    <div id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link" data-value="home" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('USER')" th:unless="${isProfilePage==true}" class="nav-link "
+                   data-value="userProfile"
+                   th:text="${loggedUser.username}" th:href="@{/users/{id}(id=${loggedUser.id})}"></a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('USER')" th:if="${isProfilePage==true}" class="nav-link "
+                   data-value="userProfile" th:href="@{/users/{id}/update(id=${loggedUser.id})}">Update profile</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="!isAuthenticated()" class="nav-link " data-value="login" th:href="@{/login}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" class="nav-link " data-value="logout"
+                   th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br>
+<br>
+<div class="container">
+    <div class="row" style="margin-top: 80px">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8" style="background-color: white; opacity: 0.8; border-radius: 10px">
+            <div style="margin-top: 20px" th:text="${exceptionMessage}"></div>
+            <div th:text="${message}"></div>
+            <br>
+            <table th:each="connection:${page.content}">
+                <td th:text="'User ' + ${connection.senderUser.username}"></td>
+                <td>
+                    <a th:href="@{/users/{id}(id=${connection.senderUser.id})}"> See User Profile</a>
+                </td>
+                <td>
+                    <form th:action="@{/users/{id}/requests/{senderId}/approve(id=${loggedUser.id}, senderId=${connection.senderUser.id})}"
+                          method="post">
+                        <input class="btn btn-secondary" type="submit" value="Approve">
+                    </form>
+                </td>
+            </table>
+            <br>
+            <div th:unless="${page.totalPages==0 || page.totalPages == 1}" class="pagination-div">
+                    <span th:if="${page.hasPrevious()}">
+                        <a th:href="@{/users/{id}/requests (id=${loggedUser.id},page=${page.number-1},size=${page.size})}">Previous</a>
+                    </span>
+                <th:block th:each="i: ${#numbers.sequence(0, page.totalPages-1)}">
+                    <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+                    <span th:unless="${page.number == i}">
+             <a th:href="@{/users/{id}/requests(id=${loggedUser.id},page=${i},size=${page.size})}">[[${i}+1]]</a>
+        </span>
+                </th:block>
+                <span th:if="${page.hasNext()}">
+                        <a th:href="@{/users/{id}/requests(id=${loggedUser.id}, page=${page.number+1},size=${page.size})}">Next</a>
+                    </span>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -81,6 +81,30 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
+    @Override
+    public List<User> getUserFriends(int id){
+        List<Connection> friendConnections = connectionService.getAllConnectionsOfUserByConnectionStatus(id, "APPROVED");
+        List<User> groupOne = friendConnections.stream()
+                .map(connection -> connection.getReceiverUser())
+                .filter(user -> user.getId()!=id)
+                .collect(Collectors.toList());
+        List<User> groupTwo = friendConnections.stream()
+                .map(connection -> connection.getSenderUser())
+                .filter(user -> user.getId()!=id)
+                .collect(Collectors.toList());
+        groupOne.addAll(groupTwo);
+        return groupOne.stream().distinct().collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getPeopleRequestingFriendship(int id){
+        List<Connection> friendConnections = connectionService.getAllConnectionsOfUserByConnectionStatus(id, "REQUESTED");
+       return friendConnections.stream()
+                .filter(connection -> connection.getReceiverUser().getId() == id)
+               .map(connection -> connection.getSenderUser())
+               .collect(Collectors.toList());
+    }
+
     @Transactional
     @Override
     public User createUser(UserDto userDto) {

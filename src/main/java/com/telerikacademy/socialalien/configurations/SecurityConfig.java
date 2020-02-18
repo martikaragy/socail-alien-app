@@ -1,5 +1,6 @@
 package com.telerikacademy.socialalien.configurations;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -36,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/swagger-ui.html", "/swagger-resources", "/v2/**/*", "/swagger-resources/**/*", "/webjars/**/*").permitAll()
             .antMatchers("/users/1").hasRole("ADMIN")
-            .antMatchers("/api/**").hasRole("ADMIN")
+//            .antMatchers("/api/**").hasRole("ADMIN")
             .antMatchers("/**").permitAll()
             .and()
             .formLogin()
