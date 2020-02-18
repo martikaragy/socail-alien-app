@@ -2,25 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1409e01-08b0-48f7-b496-8ed30ed44ab1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/controllers/restControllers/LoginRestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtAuthenticationEntryPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtRequestFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtTokenUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/LoginHttpClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/models/dtos/LoginDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/MyUserDetailsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/configurations/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/configurations/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/controllers/restControllers/UserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/controllers/restControllers/UserRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/ConnectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/ConnectionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/PostServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/contracts/ConnectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/contracts/ConnectionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/contracts/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/contracts/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/controllers/restControllers/LoginRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/controllers/restControllers/LoginRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtAuthenticationEntryPoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtAuthenticationEntryPoint.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -59,23 +44,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/controllers/restControllers/LoginRestController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="55" column="63" selection-start-line="55" selection-start-column="63" selection-end-line="55" selection-end-column="63" />
+            <state relative-caret-position="585">
+              <caret line="51" selection-start-line="51" selection-end-line="51" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1844#1845#0" expanded="true" />
+                <element signature="e#1873#1874#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/configurations/SecurityConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+            <state relative-caret-position="1037">
+              <caret line="61" column="34" lean-forward="true" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -142,15 +129,15 @@
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtTokenUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/configurations/SecurityConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtRequest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtResponse.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtAuthenticationEntryPoint.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/services/MyUserDetailsService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtRequestFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtTokenUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/LoginHttpClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtAuthenticationEntryPoint.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/controllers/restControllers/LoginRestController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/configurations/SecurityConfig.java" />
       </list>
     </option>
   </component>
@@ -463,6 +450,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RunDashboard">
@@ -512,9 +500,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1366" y="0" width="1920" height="1200" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21527778" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21527778" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -523,13 +510,13 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.15600775" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.37015504" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.37015504" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39922482" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32945737" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32945737" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.17248061" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32945737" />
@@ -751,16 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtAuthenticationEntryPoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtRequestFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -852,20 +829,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/configurations/SecurityConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/helpers/JwtHelpers/JwtAuthenticationEntryPoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+        <state relative-caret-position="544">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#0#944#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/controllers/restControllers/LoginRestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="55" column="63" selection-start-line="55" selection-start-column="63" selection-end-line="55" selection-end-column="63" />
+        <state relative-caret-position="585">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1844#1845#0" expanded="true" />
+            <element signature="e#1873#1874#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/telerikacademy/socialalien/configurations/SecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="61" column="34" lean-forward="true" selection-start-line="61" selection-start-column="34" selection-end-line="61" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

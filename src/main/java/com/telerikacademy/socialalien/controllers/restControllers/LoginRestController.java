@@ -21,6 +21,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api")
 public class LoginRestController {
@@ -40,6 +42,14 @@ public class LoginRestController {
          this.httpClient = new LoginHttpClient();
 
      }
+
+
+
+     @GetMapping("/user")
+     public Principal requestCurrentlyAuthenticatedUser(Principal principal){
+         return principal;
+     }
+
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> authenticate(@RequestBody LoginDto loginDto) {

@@ -34,27 +34,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-            .antMatchers("/swagger-ui.html", "/swagger-resources", "/v2/**/*", "/swagger-resources/**/*", "/webjars/**/*").permitAll()
-            .antMatchers("/users/1").hasRole("ADMIN")
-//            .antMatchers("/api/**").hasRole("ADMIN")
-            .antMatchers("/**").permitAll()
-            .and()
-            .formLogin()
-            .loginPage("/login")
-            .loginProcessingUrl("/authenticate")
-            .defaultSuccessUrl("/", true)
-            .permitAll()
-            .and()
-            .logout()
-            .logoutSuccessUrl("/")
-            .permitAll()
-            .and()
-            .exceptionHandling()
-            .accessDeniedPage("/access-denied");
 
-        http.csrf().disable();
+        http
+                .httpBasic()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/index.html", "/", "/login").permitAll()
+                .anyRequest().authenticated();
     }
+//        http.authorizeRequests()
+//            .antMatchers("/swagger-ui.html", "/swagger-resources", "/v2/**/*", "/swagger-resources/**/*", "/webjars/**/*").permitAll()
+//            .antMatchers("/users/1").hasRole("ADMIN")
+////            .antMatchers("/api/**").hasRole("ADMIN")
+//            .antMatchers("/**").permitAll()
+//            .and()
+//            .formLogin()
+//            .loginPage("/login")
+//            .loginProcessingUrl("/authenticate")
+//            .defaultSuccessUrl("/", true)
+//            .permitAll()
+//            .and()
+//            .logout()
+//            .logoutSuccessUrl("/")
+//            .permitAll()
+//            .and()
+//            .exceptionHandling()
+//            .accessDeniedPage("/access-denied");
+//
+//        http.csrf().disable();
+//    }
 
     @Bean
     public DataSource securityDataSource() {
