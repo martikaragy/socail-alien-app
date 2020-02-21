@@ -106,7 +106,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         return false;
     }
 
-    private List<String> getUserInfo(User user, Visibility visibility) {
+    public List<String> getUserInfo(User user, Visibility visibility) {
         List<String> attributes = new ArrayList<>();
 
         if (user.getFirstName() != null && visibility.isFirstName()) {

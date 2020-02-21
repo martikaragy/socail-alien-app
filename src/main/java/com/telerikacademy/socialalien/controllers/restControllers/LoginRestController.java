@@ -6,6 +6,7 @@ import com.telerikacademy.socialalien.helpers.JwtHelpers.JwtRequest;
 import com.telerikacademy.socialalien.helpers.JwtHelpers.JwtResponse;
 import com.telerikacademy.socialalien.helpers.JwtHelpers.JwtTokenUtil;
 import com.telerikacademy.socialalien.helpers.LoginHttpClient;
+import com.telerikacademy.socialalien.models.User;
 import com.telerikacademy.socialalien.models.dtos.LoginDto;
 import com.telerikacademy.socialalien.services.MyUserDetailsService;
 import com.telerikacademy.socialalien.services.contracts.UserService;
@@ -27,7 +28,7 @@ import java.security.Principal;
 @RequestMapping("/api")
 public class LoginRestController {
 
-
+    private UserService userService;
     private LoginHttpClient httpClient;
 
     @Autowired
@@ -38,7 +39,7 @@ public class LoginRestController {
 
 
      public LoginRestController(UserService userService){
-
+         this.userService = userService;
          this.httpClient = new LoginHttpClient();
 
      }
@@ -46,8 +47,9 @@ public class LoginRestController {
 
 
      @GetMapping("/user")
-     public Principal requestCurrentlyAuthenticatedUser(Principal principal){
-         return principal;
+     public User requestCurrentlyAuthenticatedUser(Principal principal){
+         User user = this.userService.getUserByUsername(principal.getName()).orElse(null);
+         return user;
      }
 
 

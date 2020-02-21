@@ -2,6 +2,7 @@ package com.telerikacademy.socialalien.services.contracts;
 
 
 import com.telerikacademy.socialalien.models.User;
+import com.telerikacademy.socialalien.models.Visibility;
 
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface UserInfoService {
     boolean isUserAnonymous(User user);
 
     boolean isUserAdmin(User user);
+
+    List<String> getUserInfo(User user, Visibility visibility);
 }

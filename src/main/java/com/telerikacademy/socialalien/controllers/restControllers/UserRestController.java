@@ -4,9 +4,7 @@ import com.telerikacademy.socialalien.models.Connection;
 import com.telerikacademy.socialalien.models.Post;
 import com.telerikacademy.socialalien.models.User;
 import com.telerikacademy.socialalien.models.dtos.UserDto;
-import com.telerikacademy.socialalien.services.contracts.ConnectionService;
-import com.telerikacademy.socialalien.services.contracts.PostService;
-import com.telerikacademy.socialalien.services.contracts.UserService;
+import com.telerikacademy.socialalien.services.contracts.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +14,27 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
     private UserService userService;
-    private ConnectionService connectionService;
+    private UserInfoService userInfoService;
+
     private PostService postService;
+    private VisibilityService visibilityService;
 
     @Autowired
-    public UserRestController(UserService userService, ConnectionService connectionService, PostService postService) {
+    public UserRestController(UserService userService,
+                              UserInfoService userInfoService,
+                              PostService postService,
+                              VisibilityService visibilityService) {
         this.userService = userService;
-        this.connectionService = connectionService;
+        this.userInfoService = userInfoService;
         this.postService = postService;
+        this.visibilityService = visibilityService;
+
     }
 
     @GetMapping("/users")
@@ -51,6 +57,18 @@ public class UserRestController {
         return userOptional.isPresent() ? ResponseEntity.ok(userOptional.get()) : ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/users/search/{searchTerm}")
+    public Set<User> getUserBySearchTerm(@PathVariable String searchTerm) {
+        return this.userService.getUsersBySubstring(searchTerm);
+    }
+
+    @GetMapping("/users/{username}/show/info")
+    public List<String> getUserInfo(@PathVariable String username) {
+        User user =  userService.getUserByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+       return this.userInfoService.getUserInfo(user, visibilityService.getAllPublicVisibility());
+    }
+
+
 
     @GetMapping("/users/{id}/posts")
     public List<Post> getUserPosts(@PathVariable int id) {
@@ -70,9 +88,9 @@ public class UserRestController {
         return userService.getUserFriends(user.getId());
     }
 
-     @PostMapping("/users")
-    public void createUser(@Valid @RequestBody UserDto userDto) {
-        userService.createUser(userDto);
+    @PostMapping("/users")
+    public User createUser(@Valid @RequestBody UserDto userDto) {
+        return userService.createUser(userDto);
     }
 
     @PutMapping("/users/{id}")
