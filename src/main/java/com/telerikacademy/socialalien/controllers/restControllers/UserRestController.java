@@ -98,6 +98,12 @@ public class UserRestController {
         userService.updateUser(id, userDto);
     }
 
+    @PutMapping("/users/{username}/update")
+    public void updateUserWithUsername(@PathVariable String username, @RequestBody UserDto userDto) {
+        User user = userService.getUserByUsername(username).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("There is no user with username %s", username)));
+        userService.updateUser(user.getId(), userDto);
+    }
+
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable int id){
         userService.deleteUser(id);

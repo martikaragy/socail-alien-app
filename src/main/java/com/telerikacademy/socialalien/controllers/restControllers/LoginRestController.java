@@ -48,8 +48,12 @@ public class LoginRestController {
 
      @GetMapping("/user")
      public User requestCurrentlyAuthenticatedUser(Principal principal){
-         User user = this.userService.getUserByUsername(principal.getName()).orElse(null);
-         return user;
+         if(principal!= null) {
+             User user = this.userService.getUserByUsername(principal.getName()).orElse(null);
+             return user;
+         }else{
+             return null;
+         }
      }
 
 
